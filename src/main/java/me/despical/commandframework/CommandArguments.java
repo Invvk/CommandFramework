@@ -17,12 +17,12 @@
 
 package me.despical.commandframework;
 
-import org.bukkit.command.Command;
+import me.despical.commandframework.utils.Utils;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A utility class to use command arguments without external
@@ -88,52 +88,29 @@ public class CommandArguments {
 	 * @param i index
 	 * @return indexed element or null if index out of bounds
 	 */
-	@NotNull
-	public Optional<String> getArgument(int i) {
-		return arguments.length > i && i >= 0 ? Optional.of(arguments[i])
-			: Optional.empty();
+	@Nullable
+	public String getArgument(int i) {
+		return arguments.length > i && i >= 0 ? arguments[i] : null;
 	}
 
 	/**
 	 * @param i index
 	 * @return Integer if indexed element is primitive type of int
-	 * or empty if element is null.
+	 * or 0 if element is null.
 	 */
 	@NotNull
-	public Optional<Integer> getArgumentAsInt(int i) {
-		Optional<String> optional = this.getArgument(i);
-		if (!optional.isPresent())
-			return Optional.empty();
-
-		String arg = optional.get();
-
-		try {
-			int parsed = Integer.parseInt(arg);
-			return Optional.of(parsed);
-		} catch (NumberFormatException ignored) {
-			return Optional.empty();
-		}
+	public Integer getArgumentAsInt(int i) {
+		return Utils.getInt(this.getArgument(i));
 	}
 
 	/**
 	 * @param i index
 	 * @return Double if indexed element is primitive type of double
-	 * or empty if element is null.
+	 * or 0 if element is null.
 	 */
 	@NotNull
-	public Optional<Double> getArgumentAsDouble(int i) {
-		Optional<String> optional = this.getArgument(i);
-		if (!optional.isPresent())
-			return Optional.empty();
-
-		String arg = optional.get();
-
-		try {
-			double parsed = Double.parseDouble(arg);
-			return Optional.of(parsed);
-		} catch (NumberFormatException ignored) {
-			return Optional.empty();
-		}
+	public Double getArgumentAsDouble(int i) {
+		return Utils.getDouble(this.getArgument(i));
 	}
 
 	/**
@@ -142,19 +119,8 @@ public class CommandArguments {
 	 * or empty if element is null.
 	 */
 	@NotNull
-	public Optional<Float> getArgumentAsFloat(int i) {
-		Optional<String> optional = this.getArgument(i);
-		if (!optional.isPresent())
-			return Optional.empty();
-
-		String arg = optional.get();
-
-		try {
-			float parsed = Float.parseFloat(arg);
-			return Optional.of(parsed);
-		} catch (NumberFormatException ignored) {
-			return Optional.empty();
-		}
+	public Float getArgumentAsFloat(int i) {
+		return Utils.getFloat(this.getArgument(i));
 	}
 
 	/**
@@ -163,19 +129,8 @@ public class CommandArguments {
 	 * or empty if element is null.
 	 */
 	@NotNull
-	public Optional<Long> getArgumentAsLong(int i) {
-		Optional<String> optional = this.getArgument(i);
-		if (!optional.isPresent())
-			return Optional.empty();
-
-		String arg = optional.get();
-
-		try {
-			long parsed = Long.parseLong(arg);
-			return Optional.of(parsed);
-		} catch (NumberFormatException ignored) {
-			return Optional.empty();
-		}
+	public Long getArgumentAsLong(int i) {
+		return Utils.getLong(this.getArgument(i));
 	}
 
 	/**
@@ -185,8 +140,8 @@ public class CommandArguments {
 	 */
 	@NotNull
 	public Boolean getArgumentAsBoolean(int i) {
-		final Optional<String> arg = this.getArgument(i);
-		return arg.isPresent() && arg.get().equals("true");
+		final String arg = this.getArgument(i);
+		return arg != null && arg.equalsIgnoreCase("true");
 	}
 
 	// ---------------------------------------------- //
