@@ -139,7 +139,7 @@ public class CommandArguments {
 	/**
 	 * @param i index
 	 * @return Float if indexed element is primitive type of float
-	 * or 0 if element is null.
+	 * or empty if element is null.
 	 */
 	@NotNull
 	public Optional<Float> getArgumentAsFloat(int i) {
@@ -160,7 +160,7 @@ public class CommandArguments {
 	/**
 	 * @param i index
 	 * @return Long if indexed element is primitive type of long
-	 * or 0 if element is null.
+	 * or empty if element is null.
 	 */
 	@NotNull
 	public Optional<Long> getArgumentAsLong(int i) {
@@ -181,7 +181,7 @@ public class CommandArguments {
 	/**
 	 * @param i index
 	 * @return Boolean if indexed element is primitive type of boolean
-	 * or 0 if element is null.
+	 * or empty if element is null.
 	 */
 	@NotNull
 	public Boolean getArgumentAsBoolean(int i) {
