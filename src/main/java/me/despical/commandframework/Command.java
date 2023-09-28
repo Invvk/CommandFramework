@@ -119,6 +119,13 @@ public @interface Command {
 	 */
 	SenderType senderType() default SenderType.BOTH;
 
+	/**
+	 * Should execute command in async thread?
+	 *
+	 * @return run in async
+	 */
+	boolean async() default false;
+
 	enum SenderType {
 		BOTH, CONSOLE, PLAYER
 	}

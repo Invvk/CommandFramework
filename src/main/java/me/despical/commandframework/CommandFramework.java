@@ -18,6 +18,7 @@
 package me.despical.commandframework;
 
 import me.despical.commandframework.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -364,7 +365,17 @@ public class CommandFramework implements CommandExecutor, TabCompleter {
 
 		if (args.length >= command.min() + splitted.length - 1 && newArgs.length <= (command.max() == -1 ? newArgs.length + 1 : command.max())) {
 			try {
-				entry.getValue().getKey().invoke(entry.getValue().getValue(), new CommandArguments(sender, cmd, label, newArgs));
+				if (command.async()) {
+					entry.getValue().getKey().invoke(entry.getValue().getValue(), new CommandArguments(sender, cmd, label, newArgs));
+				} else {
+					Bukkit.getScheduler().runTask(plugin, () -> {
+						try {
+							entry.getValue().getKey().invoke(entry.getValue().getValue(), new CommandArguments(sender, cmd, label, newArgs));
+						} catch (IllegalAccessException | InvocationTargetException e) {
+							e.printStackTrace();
+						}
+                    });
+				}
 				return true;
 			} catch (IllegalAccessException | InvocationTargetException e) {
 				e.printStackTrace();
