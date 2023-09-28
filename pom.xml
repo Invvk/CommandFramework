@@ -9,6 +9,7 @@
         <java.version>8</java.version>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
     </properties>
 
     <licenses>
